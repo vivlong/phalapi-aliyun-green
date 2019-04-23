@@ -13,7 +13,7 @@ class Lite {
 		}
 		AlibabaCloud::accessKeyClient($config['accessKeyId'], $config['accessKeySecret'])
 			->regionId($config['regionId']) // 设置客户端区域，使用该客户端且没有单独设置的请求都使用此设置
-			->timeout(10) 									// 超时10秒，使用该客户端且没有单独设置的请求都使用此设置
+			->timeout(6) 										// 超时10秒，使用该客户端且没有单独设置的请求都使用此设置
 			->connectTimeout(10) 						// 连接超时10秒，当单位小于1，则自动转换为毫秒，使用该客户端且没有单独设置的请求都使用此设置
 			//->debug(true) 								// 开启调试，CLI下会输出详细信息，使用该客户端且没有单独设置的请求都使用此设置
 			->asDefaultClient();
@@ -33,6 +33,22 @@ class Lite {
 		);
 		$params = array();
 		return $this->roaRequest('/green/text/scan', $body, $params);
+	}
+
+	/**
+	 * 图片检测
+	 */
+	public function imageScan($url) {
+		$task = array(
+			'dataId' =>  uniqid(),
+			'url' => $url
+		);
+		$body = array(
+			"tasks" => array($task),
+			"scenes" => array("porn", "terrorism")
+		);
+		$params = array();
+		return $this->roaRequest('/green/image/scan', $body, $params);
 	}
 
 	private function roaRequest($action, $body, $params) {
