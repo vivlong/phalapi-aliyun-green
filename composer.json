@@ -15,7 +15,7 @@
 		"role": "Developer"
 	}],
 	"require": {
-		"alibabacloud/sdk": "dev-master"
+		"alibabacloud/sdk": "^1.5"
 	},
 	"autoload": {
 		"psr-4": {
